@@ -226,7 +226,6 @@ window.onload = function() {
 
         function finishAction() {
             isActionPlaying = false;
-            // 恢復火柴人的狀態
             if (distance > 50) {
                 const frames = direction === 1 ? stopFramesRight : stopFramesLeft;
                 pet.src = frames[frameIndex];
@@ -245,7 +244,6 @@ window.onload = function() {
     }
 
      function handleMouseClick(event) {
-    console.log("滑鼠點擊事件觸發");
 
     const petRect = pet.getBoundingClientRect();
     const mouseX = event.clientX;
@@ -256,7 +254,6 @@ window.onload = function() {
 
     if (mouseX >= petRect.left && mouseX <= petRect.right &&
         mouseY >= petRect.top && mouseY <= petRect.bottom) {
-        console.log("火柴人被點擊了！");
 
         clickCount++; 
 
