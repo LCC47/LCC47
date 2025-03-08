@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Stickman Pet",
   "version": "1.0",
-  "description": "讓火柴人在網頁上走來走去",
+  "description": "讓火柴人跟在滑鼠後走來走去",
   "permissions": ["storage"],
   "host_permissions": ["<all_urls>"],
   "content_scripts": [
