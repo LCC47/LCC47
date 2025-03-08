@@ -142,7 +142,6 @@ window.onload = function() {
 	"https://i.imgur.com/qHsyt7b.png",
 	"https://i.imgur.com/L9s78Lx.png",
 	"https://i.imgur.com/UNM058K.png"
-        // ... 向右揮拳圖示 URL ...
     ];
 
     const punchFramesLeft = [
@@ -165,7 +164,6 @@ window.onload = function() {
 	"https://i.imgur.com/YGCMMEQ.png",
 	"https://i.imgur.com/cd4t48Q.png",
 	"https://i.imgur.com/kvJP1XS.png",
-        // ... 向左揮拳圖示 URL ...
     ];
 
     let clickCount = 0;
@@ -173,13 +171,13 @@ window.onload = function() {
     let stopFrameIndex = 0;
     let stopInterval = null;
     let isStopping = false;
-    let moveMode = 0; // 0: 左右移動, 1: 斜向移動
-    let hitFrameIndex = 0; // 正確的變數宣告位置
-    let hitTimer = null; // 正確的變數宣告位置
-    let knockedDownFrameIndex = 0; // 新增變數，追蹤被打倒在地動畫的幀數
-    let knockedDownInterval = null; // 新增變數，儲存被打倒在地動畫的計時器
-    let mouseX = 0; // 新增變數，儲存滑鼠 X 座標
-    let mouseY = 0; // 新增變數，儲存滑鼠 Y 座標
+    let moveMode = 0; 
+    let hitFrameIndex = 0; 
+    let hitTimer = null;
+    let knockedDownFrameIndex = 0; 
+    let knockedDownInterval = null; 
+    let mouseX = 0; 
+    let mouseY = 0; 
     let actionFrameIndex = 0;
     let actionInterval = null;
     let isActionPlaying = false;
@@ -210,7 +208,7 @@ window.onload = function() {
         pet.src = actionFrames[actionFrameIndex];
 
         let startTime = null;
-        const duration = 110 * actionFrames.length; // 稍微增加動畫時間
+        const duration = 110 * actionFrames.length; 
 
         function animate(timestamp) {
             if (!startTime) startTime = timestamp;
@@ -218,9 +216,9 @@ window.onload = function() {
             let frame = Math.floor(progress / 100);
 
             if (frame < actionFrames.length) {
-                actionFrameIndex = frame; // 更新 actionFrameIndex
+                actionFrameIndex = frame; 
                 pet.src = actionFrames[actionFrameIndex];
-                requestAnimationFrame(animate); // 確保連續調用
+                requestAnimationFrame(animate); 
             } else {
                 finishAction();
             }
@@ -243,7 +241,6 @@ window.onload = function() {
 
         requestAnimationFrame(animate);
 
-        // 使用 setTimeout() 作為備份
         setTimeout(finishAction, duration);
     }
 
@@ -261,32 +258,28 @@ window.onload = function() {
         mouseY >= petRect.top && mouseY <= petRect.bottom) {
         console.log("火柴人被點擊了！");
 
-        clickCount++; // 增加點擊計數
+        clickCount++; 
 
         if (clickCount >= 3) {
-            // 連續點擊三次以上，顯示被打倒在地動畫
             isMoving = false;
             knockedDownFrameIndex = 0;
             const knockedDownFrames = direction === 1 ? knockedDownFramesRight : knockedDownFramesLeft;
             pet.src = knockedDownFrames[knockedDownFrameIndex];
 
-            // 清除舊的計時器
             if (knockedDownInterval !== null) {
                 clearInterval(knockedDownInterval);
                 knockedDownInterval = null;
             }
 
-            // 開始播放動畫
             knockedDownInterval = setInterval(() => {
                 knockedDownFrameIndex++;
-                console.log("knockedDownFrameIndex:", knockedDownFrameIndex); // 偵錯輸出
+                console.log("knockedDownFrameIndex:", knockedDownFrameIndex); 出
                 if (knockedDownFrameIndex >= knockedDownFrames.length) {
                     knockedDownFrameIndex = 0;
                 }
                 pet.src = knockedDownFrames[knockedDownFrameIndex];
             }, 200);
 
-            // 設定計時器，恢復原來的圖示和移動
             if (hitTimer !== null) {
                 clearTimeout(hitTimer);
             }
@@ -299,7 +292,6 @@ window.onload = function() {
                 movePet();
             }, 2000);
         } else {
-            // 顯示被打到圖示
             isMoving = false;
             console.log("direction:", direction);
             console.log("hitFrameIndex:", hitFrameIndex);
@@ -322,7 +314,7 @@ window.onload = function() {
     }
 }
 
-    // 監聽滑鼠點擊事件
+
     document.addEventListener('click', handleMouseClick);
     document.addEventListener('mousemove', (event) => {
         mouseX = event.clientX;
@@ -332,7 +324,6 @@ window.onload = function() {
 
     function movePet() {
         if (isMoving && !isActionPlaying) {
-            // 跟隨滑鼠移動
             const petRect = pet.getBoundingClientRect();
             const petCenterX = petRect.left + petRect.width / 2;
             const petCenterY = petRect.top + petRect.height / 2;
@@ -343,7 +334,6 @@ window.onload = function() {
             distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
             if (distance > 100) {
-                // 移動邏輯
                 wasMoving = true;
                 const moveSpeed = 5;
                 const moveX = (deltaX / distance) * moveSpeed;
@@ -371,7 +361,6 @@ window.onload = function() {
                 frameIndex = (frameIndex + 1) % frames.length;
             }
 
-            // 隨機觸發揮劍或揮拳動作
             if (Math.random() < 0.001) {
                 const action = Math.random() < 0.5 ? "sword" : "punch";
                 const actionFrames = direction === 1 ?
